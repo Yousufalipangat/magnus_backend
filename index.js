@@ -8,7 +8,7 @@ const app = express();
 
 app.use(bodyParser.json())
 const corsOptions ={
-    origin:'http://localhost:3000', 
+    origin:'https://magnus-backend-point.onrender.com', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200,
  }
@@ -21,7 +21,7 @@ app.post('/' , (req,res)=>{
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
         res.send(true);
     }else{
-        res.send(true)
+        res.send(false)
     }
 })
 
