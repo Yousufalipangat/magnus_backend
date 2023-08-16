@@ -16,7 +16,7 @@ const corsOptions ={
 app.use(cors(corsOptions));
 app.use("/record",records);
 
-app.post('/' , (req,res)=>{
+app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
    
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
         res.send(true);
