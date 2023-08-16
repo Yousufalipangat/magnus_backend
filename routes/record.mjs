@@ -7,6 +7,8 @@ const router = express.Router();
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
 
+  console.log('get - here')
+
   let collection = await db.collection("employees");
   
 let params1 = req.query.firstName;
@@ -37,20 +39,21 @@ if(employeeName && mobile)
 });
 
 //This section will help you to get all listed records with sorted
-router.get("/sort/:sort-:desc", async (req, res) => {
+// router.get("/sort/:sort-:desc", async (req, res) => {
  
-  let collection = await db.collection("employees");
-  let sort= {[req.params.sort]: req.params.desc == 'true'? -1:1 }
-  let results = await collection.find({}).sort(sort).toArray();
+
+//   let collection = await db.collection("employees");
+//   let sort= {[req.params.sort]: req.params.desc == 'true'? -1:1 }
+//   let results = await collection.find({}).sort(sort).toArray();
  
-  res.send(results).status(200);
-});
+//   res.send(results).status(200);
+// });
 
 
 // This section will help you create a new record.
 router.post("/", async (req, res) => {
  
-  
+  console.log('post - here',req.body,req.params)
   let newDocument = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -72,6 +75,7 @@ router.post("/", async (req, res) => {
 // This section will help you update a record by id.
 router.patch("/:id", async (req, res) => {
 
+  console.log('patch - here')
   const query = { _id: new ObjectId(req.params.id) };
   const updates =  {
     $set: {
