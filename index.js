@@ -8,7 +8,7 @@ const app = express();
 
 app.use(bodyParser.json())
 const corsOptions ={
-    origin:'https://magnus-backend-point.onrender.com', 
+    origin:'https://magnus-full-stack-v1.netlify.app', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200,
  }
