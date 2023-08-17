@@ -7,9 +7,10 @@ const router = express.Router();
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
 
-  console.log('get - here')
+  if(req.session.username)
+  {
 
-  let collection = await db.collection("employees");
+let collection = await db.collection("employees");
   
 let params1 = req.query.firstName;
 let params2 = req.query.mobileNumber;
@@ -35,25 +36,18 @@ if(employeeName && mobile)
 }
 
   res.send(results).status(200);
-  res.redirect
+}else{
+
+res.send('Your are not authorized, please login to account')
+}
 });
 
-//This section will help you to get all listed records with sorted
-// router.get("/sort/:sort-:desc", async (req, res) => {
- 
 
-//   let collection = await db.collection("employees");
-//   let sort= {[req.params.sort]: req.params.desc == 'true'? -1:1 }
-//   let results = await collection.find({}).sort(sort).toArray();
- 
-//   res.send(results).status(200);
-// });
-
-
-// This section will help you create a new record.
 router.post("/", async (req, res) => {
- 
-  console.log('post - here',req.body,req.params)
+
+  if(req.session.username)
+  {
+
   let newDocument = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -70,12 +64,19 @@ router.post("/", async (req, res) => {
   let collection = await db.collection("employees");
   let result = await collection.insertOne(newDocument);
   res.send(result).status(204);
+
+}else{
+
+  res.send('Your are not authorized, please login to account')
+  }
 });
 
 // This section will help you update a record by id.
 router.patch("/:id", async (req, res) => {
 
-  console.log('patch - here')
+  if(req.session.username)
+  {
+
   const query = { _id: new ObjectId(req.params.id) };
   const updates =  {
     $set: {
@@ -95,10 +96,16 @@ router.patch("/:id", async (req, res) => {
   let result = await collection.updateOne(query, updates);
 
   res.send(result).status(200);
+}else{
+
+  res.send('Your are not authorized, please login to account')
+  }
 });
 
 // This section will help you delete a record
 router.delete("/:id", async (req, res) => {
+  if(req.session.username)
+  {
 
  
   const query = { _id: new ObjectId(req.params.id) };
@@ -107,6 +114,10 @@ router.delete("/:id", async (req, res) => {
   let result = await collection.deleteOne(query);
 
   res.send(result).status(200);
+}else{
+
+  res.send('Your are not authorized, please login to account')
+  }
 });
 
 export default router;

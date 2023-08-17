@@ -4,40 +4,57 @@ import "./loadEnvironment.mjs";
 import records from "./routes/record.mjs";
 import cors from 'cors';
 const app = express();
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
 
-
+app.use(cookieParser());
 app.use(bodyParser.json())
-
-var whitelist = ['https://magnus-full-stack-v1.netlify.app', 'http://localhost:3000']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
+app.use(session({
+  secret:'boboo secrety',
+  resave:false,
+  saveUninitialized:false,
+  cookie:{
+    secure:false,
+    maxAge:1000*60*5
+    }
+  }))
+  
+  var whitelist = ['https://magnus-full-stack-v1.netlify.app', 'http://localhost:3000']
+  var corsOptionsDelegate = function (req, callback) {
+    var corsOptions;
+    if (whitelist.indexOf(req.header('Origin')) !== -1) {
+      corsOptions = { origin: true , credentials:true} // reflect (enable) the requested origin in the CORS response
+    } else {
+      corsOptions = { origin: false } // disable CORS for this request
+    }
+    callback(null, corsOptions) // callback expects two parameters: error and options
   }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
- 
-
-// const corsOptions ={
-//     origin:['https://magnus-full-stack-v1.netlify.app','http://localhost:3000'], 
-//     credentials:true,            //access-control-allow-credentials:true
-//     optionSuccessStatus:200,
-//  }
-
+  
+  
+  
 app.use(cors(corsOptionsDelegate));
-app.use("/record",records);
+
+app.use('/record',records);
 
 app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
-   
-   
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
         
-        res.send(true);
+         req.session.username = 'train@urself.com';
+        
+        res.send({login:true , username:req.session.username});
     }else{
-        res.send(false)
+        res.send({login:false})
     }
+})
+
+app.get("/",bodyParser.urlencoded({extended:false}),(req,res)=>{
+
+  if(req.session.username)
+  {
+    res.send({valid:true,username:req.session.username})
+  }else{
+    res.send({valid:false});
+  }
 })
 
 
