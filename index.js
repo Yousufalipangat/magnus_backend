@@ -9,16 +9,15 @@ import cookieParser from 'cookie-parser';
 
 app.use(cookieParser());
 app.use(bodyParser.json())
-app.enable('trust proxy')
+app.set('trust proxy',1)
 app.use(session({
   secret:'boboo secrety',
   resave:false,
-  saveUninitialized:false,
+  saveUninitialized:true,
   cookie:{
     secure:true,
     maxAge:1000*60*5,
     sameSite:'lax',
-    httpOnly:true,
     
 
     }
