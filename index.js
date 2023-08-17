@@ -50,6 +50,8 @@ app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
 
 app.get("/",bodyParser.urlencoded({extended:false}),(req,res)=>{
 
+  console.log(req.session);
+
   if(req.session.username)
   {
     res.send({valid:true,username:req.session.username})
