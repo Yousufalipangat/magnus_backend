@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 
 app.use(cookieParser());
 app.use(bodyParser.json())
-app.set('trust proxy', 1);
+app.enable('trust proxy')
 app.use(session({
   secret:'boboo secrety',
   resave:false,
@@ -17,7 +17,9 @@ app.use(session({
   cookie:{
     secure:true,
     maxAge:1000*60*5,
-    sameSite:'none'
+    sameSite:'none',
+    httpOnly:true,
+    
 
     }
   }))
