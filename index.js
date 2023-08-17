@@ -14,6 +14,7 @@ app.use(session({
   secret:'boboo secrety',
   resave:false,
   saveUninitialized:false,
+  proxy:true,
   cookie:{
     secure:true,
     maxAge:1000*60*5,
