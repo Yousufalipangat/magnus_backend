@@ -16,7 +16,9 @@ app.use(session({
   saveUninitialized:false,
   cookie:{
     secure:true,
-    maxAge:1000*60*5
+    maxAge:1000*60*5,
+    sameSite:'none'
+
     }
   }))
   
@@ -41,6 +43,7 @@ app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
         
          req.session.username = 'train@urself.com';
+         
         
         res.send({login:true , username:req.session.username});
     }else{
