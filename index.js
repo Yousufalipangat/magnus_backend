@@ -18,24 +18,22 @@ var corsOptionsDelegate = function (req, callback) {
   callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
-
-
-//app.use(cookieParser());
 app.use(bodyParser.json())
+app.use(cookieParser());
 app.use(session(
   {
     secret:'boboo secrety',
     resave:false,
     saveUninitialized:true,
     cookie:{
-      secure:true,
+      secure:'auto',
       maxAge:1000*60*5,
-      sameSite:'none',
+     
       
     }
   }))
   
-  app.set('trust proxy',1)
+ //app.set('trust proxy',1)
   app.use(cors(corsOptionsDelegate));
   app.use('/record',records);
 
@@ -44,6 +42,7 @@ app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
         
          req.session.username = 'train@urself.com';
          
+         console.log(req.session)
         
         res.send({login:true , username:req.session.username});
     }else{
