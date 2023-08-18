@@ -7,38 +7,39 @@ const app = express();
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 
+var whitelist = ['https://magnus-full-stack-v1.netlify.app', 'http://localhost:3000','https://magnus-backend-point.onrender.com']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true , credentials:true} // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
+
+
 app.use(cookieParser());
 app.use(bodyParser.json())
-app.set('trust proxy',1)
-app.use(session({
-  secret:'boboo secrety',
-  resave:true,
-  saveUninitialized:false,
-  cookie:{
-    secure:true,
-    maxAge:1000*60*5,
-    sameSite:'none',
+app.use(session(
+  {
+    secret:'boboo secrety',
+    resave:true,
     
-
+    saveUninitialized:false,
+    cookie:{
+      secure:true,
+      maxAge:1000*60*5,
+      sameSite:'none',
+      
+      
     }
   }))
   
-  var whitelist = ['https://magnus-full-stack-v1.netlify.app', 'http://localhost:3000','https://magnus-backend-point.onrender.com']
-  var corsOptionsDelegate = function (req, callback) {
-    var corsOptions;
-    if (whitelist.indexOf(req.header('Origin')) !== -1) {
-      corsOptions = { origin: true , credentials:true} // reflect (enable) the requested origin in the CORS response
-    } else {
-      corsOptions = { origin: false } // disable CORS for this request
-    }
-    callback(null, corsOptions) // callback expects two parameters: error and options
-  }
-  
-  
-  
-app.use(cors(corsOptionsDelegate));
-
-app.use('/record',records);
+  app.set('trust proxy',1)
+  app.use(cors(corsOptionsDelegate));
+  app.use('/record',records);
 
 app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
