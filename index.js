@@ -27,8 +27,8 @@ app.use(session(
     saveUninitialized:true,
     cookie:{
       secure:'auto',
-      domain:'*onrender.com',
       maxAge:1000*60*5,
+      sameSite:true
      
       
     }
