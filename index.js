@@ -23,7 +23,7 @@ app.use(session({
     }
   }))
   
-  var whitelist = ['https://magnus-full-stack-v1.netlify.app', 'http://localhost:3000']
+  var whitelist = ['https://magnus-full-stack-v1.netlify.app', 'http://localhost:3000','https://magnus-backend-point.onrender.com']
   var corsOptionsDelegate = function (req, callback) {
     var corsOptions;
     if (whitelist.indexOf(req.header('Origin')) !== -1) {
