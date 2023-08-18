@@ -27,6 +27,7 @@ app.use(session(
     saveUninitialized:true,
     cookie:{
       secure:'auto',
+      domain:['mangnus-front.onrender.com','magnus-backend-point.onrender.com'],
       maxAge:1000*60*5,
      
       
