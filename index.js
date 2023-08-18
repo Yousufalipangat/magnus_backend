@@ -7,7 +7,7 @@ const app = express();
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 
-var whitelist = ['https://magnus-full-stack-v1.netlify.app', 'http://localhost:3000','https://magnus-backend-point.onrender.com']
+var whitelist = ['https://magnus-full-stack-v1.netlify.app', 'http://localhost:3000']
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (whitelist.indexOf(req.header('Origin')) !== -1) {
@@ -28,6 +28,7 @@ app.use(session(
     resave:true,
     saveUninitialized:false,
     cookie:{
+      domain:'magnus-backend-point.onrender',
       secure:true,
       maxAge:1000*60*5,
       sameSite:'none',
