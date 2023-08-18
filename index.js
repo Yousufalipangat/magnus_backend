@@ -28,7 +28,7 @@ app.use(session(
     resave:true,
     saveUninitialized:false,
     cookie:{
-      domain:'magnus-backend-point.onrender.com',
+      domain:['magnus-backend-point.onrender.com','magnus-full-stack-v1.netlify.app'],
       secure:true,
       maxAge:1000*60*5,
       sameSite:'none',
