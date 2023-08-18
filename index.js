@@ -24,11 +24,10 @@ app.use(session(
   {
     secret:'boboo secrety',
     resave:false,
-    saveUninitialized:true,
+    saveUninitialized:false,
     cookie:{
       secure:'auto',
       maxAge:1000*60*5,
-      sameSite:true
      
       
     }
