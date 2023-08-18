@@ -20,20 +20,17 @@ var corsOptionsDelegate = function (req, callback) {
 
 
 
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(session(
   {
     secret:'boboo secrety',
-    resave:true,
-    saveUninitialized:false,
+    resave:false,
+    saveUninitialized:true,
     cookie:{
-      domain:['magnus-backend-point.onrender.com','magnus-full-stack-v1.netlify.app'],
       secure:true,
       maxAge:1000*60*5,
       sameSite:'none',
-      httpOnly:true
-      
       
     }
   }))
