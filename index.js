@@ -34,7 +34,7 @@ app.use(session(
   }))
   
  app.set('trust proxy',1)
-  app.use(cors());
+  app.use(cors({domain:'*'}));
   app.use('/record',records);
 
 app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
