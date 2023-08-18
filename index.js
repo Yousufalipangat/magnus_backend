@@ -29,6 +29,7 @@ app.use(session(
     
     saveUninitialized:false,
     cookie:{
+      domain:['https://magnus-full-stack-v1.netlify.app'],
       secure:true,
       maxAge:1000*60*5,
       sameSite:'none',
