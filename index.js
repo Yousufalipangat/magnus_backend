@@ -12,12 +12,12 @@ app.use(bodyParser.json())
 app.set('trust proxy',1)
 app.use(session({
   secret:'boboo secrety',
-  resave:false,
-  saveUninitialized:true,
+  resave:true,
+  saveUninitialized:false,
   cookie:{
     secure:true,
     maxAge:1000*60*5,
-    sameSite:'lax',
+    sameSite:'none',
     
 
     }
