@@ -32,7 +32,7 @@ app.use(session(
 
   app.post('/' , (req,res)=>{
 
-   console.lo('reached post /');
+   console.log('reached post /');
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
         
          req.session.username = 'train@urself.com';
