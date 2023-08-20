@@ -44,7 +44,7 @@ if(employeeName && mobile)
 res.send('Your are not authorized, please login to account').status(300)
 }
 }catch(e){
-  res.send('Your are not authorized or error due to bad request').status(400)
+  res.send(e).statusCode(400)
   }
 });
 
