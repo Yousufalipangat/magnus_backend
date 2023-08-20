@@ -8,7 +8,7 @@ import session from 'express-session';
 //import cookieParser from 'cookie-parser';
 app.use(express.json())
 //app.use(cookieParser());
-app.use(cors({origin:['https://magnus-full-stack-v1.netlify.app','http://localhost:3000'],credentials:true}));
+app.use(cors({origin:['https://magnus-full-stack-v1.netlify.app','https://mangnus-front.onrender.com'],credentials:true}));
 
 app.use('/record',records);
 
