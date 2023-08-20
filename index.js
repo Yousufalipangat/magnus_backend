@@ -1,25 +1,16 @@
-import bodyParser from 'body-parser';
+//import bodyParser from 'body-parser';
 import express from 'express';
 import "./loadEnvironment.mjs";
 import records from "./routes/record.mjs";
 import cors from 'cors';
 const app = express();
 import session from 'express-session';
-import cookieParser from 'cookie-parser';
+//import cookieParser from 'cookie-parser';
+app.use(express.json())
+//app.use(cookieParser());
+app.use('/record',records);
 
-var whitelist = ['https://magnus-full-stack-v1.netlify.app']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true , credentials:true} // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
-
-app.use(bodyParser.json())
-app.use(cookieParser());
+app.use(cors({origin:'https://magnus-backend-point.onrender.com',credentials:true}));
 app.use(session(
   {
     secret:'boboo secrety',
@@ -31,13 +22,13 @@ app.use(session(
       sameSite:'none'  
     }
   }))
+
+  app.set("trust proxy",1)
   
-  app.use(cors(corsOptionsDelegate));
 
+//,bodyParser.urlencoded({extended:false})
 
-  app.use('/record',records);
-
-  app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
+  app.post('/' , (req,res)=>{
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
         
          req.session.username = 'train@urself.com';
@@ -50,7 +41,7 @@ app.use(session(
     }
 })
 
-app.get("/auth",bodyParser.urlencoded({extended:false}),(req,res)=>{
+app.get("/auth",(req,res)=>{
 
   console.log(req.session);
 
