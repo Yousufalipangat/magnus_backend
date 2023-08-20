@@ -7,16 +7,16 @@ const app = express();
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 
-// var whitelist = ['https://magnus-full-stack-v1.netlify.app','https://mangnus-front.onrender.com', 'http://localhost:3000']
-// var corsOptionsDelegate = function (req, callback) {
-//   var corsOptions;
-//   if (whitelist.indexOf(req.header('Origin')) !== -1) {
-//     corsOptions = { origin: true , credentials:true} // reflect (enable) the requested origin in the CORS response
-//   } else {
-//     corsOptions = { origin: false } // disable CORS for this request
-//   }
-//   callback(null, corsOptions) // callback expects two parameters: error and options
-// }
+var whitelist = ['https://magnus-full-stack-v1.netlify.app']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true , credentials:true} // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
 
 app.use(bodyParser.json())
 app.use(cookieParser());
@@ -26,23 +26,18 @@ app.use(session(
     resave:false,
     saveUninitialized:false,
     cookie:{
-      secure:'auto',
+      secure:true,
       maxAge:1000*60*5,
-     
-      
+      sameSite:'none'  
     }
   }))
   
-  // app.set('trust proxy',1)
- // app.use(cors(corsOptionsDelegate));
+  app.use(cors(corsOptionsDelegate));
 
- app.use('*',cors({
-  origin:true,
-  credentials:true
- }))
+
   app.use('/record',records);
 
-app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
+  app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
         
          req.session.username = 'train@urself.com';
@@ -55,7 +50,7 @@ app.post('/' ,bodyParser.urlencoded({extended:false}), (req,res)=>{
     }
 })
 
-app.get("/",bodyParser.urlencoded({extended:false}),(req,res)=>{
+app.get("/auth",bodyParser.urlencoded({extended:false}),(req,res)=>{
 
   console.log(req.session);
 
