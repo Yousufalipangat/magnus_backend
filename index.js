@@ -8,8 +8,8 @@ import session from 'express-session';
 //import cookieParser from 'cookie-parser';
 app.use(express.json())
 //app.use(cookieParser());
-app.options(cors({origin:['https://magnus-full-stack-v1.netlify.app','https://mangnus-front.onrender.com'],credentials:true}))
 app.use(cors({origin:['https://magnus-full-stack-v1.netlify.app','https://mangnus-front.onrender.com'],credentials:true}));
+app.options(cors({origin:['https://magnus-full-stack-v1.netlify.app','https://mangnus-front.onrender.com'],credentials:true}))
 
 app.use('/record',records);
 
@@ -21,7 +21,7 @@ app.use(session(
     cookie:{
       path:'/',
       secure:true,
-      maxAge:1000*60*5,
+      maxAge:1000*60*60,
       sameSite:'none'  
     }
   }))
