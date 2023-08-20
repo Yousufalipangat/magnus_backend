@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
 
   if(req.session.username)
   {
+    console.log('inside func')
 
 let collection = await db.collection("employees");
   
@@ -40,10 +41,10 @@ if(employeeName && mobile)
   res.send(results).status(200);
 }else{
 
-res.send('Your are not authorized, please login to account')
+res.send('Your are not authorized, please login to account').status(300)
 }
 }catch(e){
-  res.send('Your are not authorized or error due to bad request')
+  res.send('Your are not authorized or error due to bad request').status(400)
   }
 });
 
