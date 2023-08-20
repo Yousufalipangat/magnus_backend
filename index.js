@@ -8,8 +8,8 @@ import session from 'express-session';
 //import cookieParser from 'cookie-parser';
 app.use(express.json())
 //app.use(cookieParser());
-app.use(cors({origin:'https://magnus-full-stack-v1.netlify.app/*',credentials:true}));
-app.options(cors({origin:'https://magnus-full-stack-v1.netlify.app',credentials:true}))
+app.use(cors({origin:'https://magnus-full-stack-v1.netlify.app',credentials:true}));
+
 app.use('/record',records);
 
 app.use(session(
@@ -31,6 +31,8 @@ app.use(session(
 //,bodyParser.urlencoded({extended:false})
 
   app.post('/' , (req,res)=>{
+
+   console.lo('reached post /');
     if('train@urself.com' == req.body.email && 'jobprogram' == req.body.pass){
         
          req.session.username = 'train@urself.com';
@@ -44,6 +46,8 @@ app.use(session(
 })
 
 app.get("/auth",(req,res)=>{
+
+  console.log('reached get /auth')
 
   console.log(req.session);
 

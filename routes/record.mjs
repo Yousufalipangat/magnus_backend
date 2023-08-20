@@ -6,6 +6,8 @@ const router = express.Router();
 
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
+  console.log('get record /')
+  try{
 
   if(req.session.username)
   {
@@ -40,11 +42,16 @@ if(employeeName && mobile)
 
 res.send('Your are not authorized, please login to account')
 }
+}catch(e){
+  res.send('Your are not authorized or error due to bad request')
+  }
 });
 
 
 router.post("/", async (req, res) => {
 
+  console.log('post record /')
+try{
   if(req.session.username)
   {
 
@@ -69,11 +76,15 @@ router.post("/", async (req, res) => {
 
   res.send('Your are not authorized, please login to account')
   }
+}catch(e){
+res.send('Your are not authorized or error due to bad request')
+}
 });
 
 // This section will help you update a record by id.
 router.patch("/:id", async (req, res) => {
-
+  try{
+    console.log('patch record /:id')
   if(req.session.username)
   {
 
@@ -100,10 +111,15 @@ router.patch("/:id", async (req, res) => {
 
   res.send('Your are not authorized, please login to account')
   }
+}catch(e){
+  res.send('Your are not authorized or error due to bad request')
+  }
 });
 
 // This section will help you delete a record
 router.delete("/:id", async (req, res) => {
+  try{
+    console.log('delete record /:id')
   if(req.session.username)
   {
 
@@ -117,6 +133,9 @@ router.delete("/:id", async (req, res) => {
 }else{
 
   res.send('Your are not authorized, please login to account')
+  }
+}catch(e){
+  res.send('Your are not authorized or error due to bad request')
   }
 });
 
