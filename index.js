@@ -10,7 +10,7 @@ app.use(express.json())
 //app.use(cookieParser());
 app.use('/record',records);
 
-app.use(cors({origin:'https://magnus-backend-point.onrender.com',credentials:true}));
+app.use(cors({origin:'https://magnus-full-stack-v1.netlify.app',credentials:true}));
 app.use(session(
   {
     secret:'boboo secrety',
