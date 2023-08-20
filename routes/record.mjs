@@ -9,6 +9,8 @@ router.get("/", async (req, res) => {
   console.log('get record /')
   try{
 
+    console.log(req.session)
+
   if(req.session.username)
   {
     console.log('inside func')
@@ -44,7 +46,7 @@ if(employeeName && mobile)
 res.send('Your are not authorized, please login to account').status(300)
 }
 }catch(e){
-  res.send(e).statusCode(400)
+  res.send(e).status(400)
   }
 });
 
