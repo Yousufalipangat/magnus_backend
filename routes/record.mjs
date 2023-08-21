@@ -7,14 +7,10 @@ const router = express.Router();
 
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
-  console.log('get record /')
   try{
-
-    console.log('request-----',req.session)
 
   if(req.session.username)
   {
-    console.log('inside func')
 
 let collection = await db.collection("employees");
   
@@ -47,7 +43,7 @@ if(employeeName && mobile)
 res.send('Your are not authorized, please login to account').status(300)
 }
 }catch(e){
-  res.send(e).status(400)
+  res.status(400).send('request is not proper')
   }
 });
 
