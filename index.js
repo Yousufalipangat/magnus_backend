@@ -27,7 +27,7 @@ app.use(session(
   
   app.set("trust proxy",1)
   
-  app.use('/record',records);
+
   
 //,bodyParser.urlencoded({extended:false})
 
@@ -60,6 +60,7 @@ app.get("/auth",(req,res)=>{
   }
 })
 
+app.use('/record',records);
 
 app.listen(process.env.PORT || 8000 , ()=>{
    console.log("server running");
