@@ -11,7 +11,6 @@ app.use(express.json())
 app.use(cors({origin:['https://magnus-full-stack-v1.netlify.app','https://mangnus-front.onrender.com'],credentials:true}));
 app.options(cors({origin:['https://magnus-full-stack-v1.netlify.app','https://mangnus-front.onrender.com'],credentials:true}))
 
-app.use('/record',records);
 
 app.use(session(
   {
@@ -25,10 +24,11 @@ app.use(session(
       sameSite:'none'  
     }
   }))
-
+  
   app.set("trust proxy",1)
   
-
+  app.use('/record',records);
+  
 //,bodyParser.urlencoded({extended:false})
 
   app.post('/' , (req,res)=>{
