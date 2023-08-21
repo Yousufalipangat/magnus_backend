@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
   console.log('get record /')
   try{
 
-    console.log('request-----',JSON.stringify(req))
+    console.log('request-----',req.session)
 
   if(req.session.username)
   {
